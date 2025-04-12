@@ -1,0 +1,51 @@
+---
+description: Guidelines for effectively using the think tool for reasoning and planning.
+alwaysApply: true
+---
+
+# Think Tool Usage
+
+**Core Principle:** Utilize the `think` tool for complex reasoning, brainstorming, planning, and verifying actions, especially during multi-step operations or when analyzing complex information.
+
+## When to Use
+- **SHOULD** use the `think` tool when:
+    - Exploring potential solutions for bugs or issues.
+    - Brainstorming approaches to fix failing tests.
+    - Planning complex refactoring efforts or outlining design tradeoffs.
+    - Designing new features, considering architecture and implementation details.
+    - Organizing thoughts and hypotheses during complex debugging.
+    - Considering significant deviations from the current plan or user instructions.
+    - Before and after tool calls in multi-step operations to improve flow and verify actions against project policies.
+    - Processing complex tool outputs to extract relevant information.
+
+## How to Use
+- **MUST** structure thoughts logically within the tool.
+- **SHOULD** outline the problem, potential approaches, considerations, and chosen strategy.
+
+## Example Usage (Feature Implementation Planning)
+
+```plaintext
+- New project analysis feature requirements:
+  - Analyze dependency relationships across modules
+  - Identify potential circular dependencies
+  - Calculate code complexity metrics
+  - Generate visualization of module relationships
+
+- Implementation considerations:
+  - Need to extend ProjectAnalyzer class
+  - Should reuse existing file traversal mechanisms
+  - Results need consistent format with other analyzer methods
+  - Must handle large codebases efficiently
+
+- Design approach:
+  1. Create new DependencyAnalyzer class following existing patterns
+  2. Implement core dependency tracking algorithm
+  3. Add complexity calculation methods
+  4. Integrate visualization generation
+  5. Add caching for performance optimization
+
+- Testing strategy:
+  - Unit tests for algorithm correctness
+  - Integration tests with existing analyzer components
+  - Performance tests with large codebases
+``` 

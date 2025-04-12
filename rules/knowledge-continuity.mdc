@@ -1,0 +1,24 @@
+---
+description: Guidelines for maintaining project knowledge continuity using AI_CONTEXT.md.
+alwaysApply: true
+---
+
+# Knowledge Continuity (AI_CONTEXT.md)
+
+**Core Principle:** Maintain a central `AI_CONTEXT.md` file in the project root to store essential project knowledge, ensuring consistency and context across sessions.
+
+## Initial Check & Creation
+- **MUST** check for `AI_CONTEXT.md` in the project root at the beginning of a session.
+- **MUST** ask the user to clarify the project root if uncertain (e.g., in monorepos).
+- If found: **MUST** read `AI_CONTEXT.md` to establish context.
+- If not found:
+    1. **MUST** perform project architecture and pattern analysis.
+    2. **MUST** generate a comprehensive `AI_CONTEXT.md` capturing key insights.
+    3. **MUST** add the file to the project root.
+
+## Updates
+- **MUST** update `AI_CONTEXT.md` when:
+    - New architectural patterns are identified.
+    - Significant implementation decisions are made.
+    - Project structure undergoes major changes.
+- **BEFORE** updating: **SHOULD** briefly describe the proposed changes and the reason for the update to the user, especially for substantial modifications. 

@@ -1,0 +1,107 @@
+---
+description: React Native and Expo best practices and patterns for modern mobile applications
+globs: **/*.tsx, **/*.jsx, **/components/**/*, **/screens/**/*, app/**/*
+---
+
+# React Native & Expo Best Practices and Guidelines
+
+**Core Principle:** Adhere to these guidelines when developing React Native applications using Expo to ensure code quality, maintainability, performance, and consistency.
+
+## Component Reusability & Creation Strategy
+- **PRIORITIZE REUSE:** Before implementing any new UI element, **ALWAYS** first search for existing components within the project's designated shared UI library folders:
+    - **Single Project:** Check `**/components/ui/**/*`.
+    - **Monorepo:** Check `packages/ui/**/*` or `packages/components/**/*`.
+- **EXTEND EXISTING:** If a similar component exists, **STRONGLY PREFER** extending or adapting it with necessary props or variations rather than creating a new, duplicative component. Document the rationale if extension is not feasible.
+- **CREATE REUSABLE:** When a new UI pattern is genuinely required and no suitable existing component is found, **ALWAYS** design and implement it as a new, reusable, and composable component. Avoid creating single-use UI components.
+- **CORRECT PLACEMENT:** **ENSURE** any newly created reusable UI components are placed in the appropriate shared UI library folder (`**/components/ui/**/*` or `packages/(ui|components)/**/*`). Do **NOT** place reusable UI components within feature-specific directories.
+
+## Component Structure
+- **MUST** use functional components with Hooks. Avoid class components entirely.
+- **MUST** keep components small, focused on a single responsibility, and highly reusable.
+- **MUST** utilize React Native core components (`View`, `Text`, `Pressable`, `Image`, `ScrollView`, etc.) appropriately.
+- **PREFER** extracting reusable non-rendering logic into custom hooks (`useCustomHook`).
+- **MUST** favor composition over inheritance for sharing component logic and UI.
+- **MUST** implement precise prop types using TypeScript interfaces or types. Avoid `any` or overly permissive types.
+- **MUST** split large components or screens into smaller, more manageable sub-components.
+- **CONSIDER** platform-specific implementations using `Platform.OS` checks within a component or via platform-specific file extensions (`MyComponent.ios.tsx`, `MyComponent.android.tsx`) when necessary for distinct platform behavior or UI.
+
+## Hooks
+- **MUST** strictly follow the Rules of Hooks (only call Hooks at the top level, only call from React functions).
+- **PREFER** creating custom hooks (`useCustomHook`) to encapsulate and reuse stateful logic.
+- **ENSURE** custom hooks have a single, well-defined responsibility.
+- **MUST** manage `useEffect`, `useMemo`, `useCallback` dependency arrays accurately. Include all values the effect/memoization depends on. Use `eslint-plugin-react-hooks` to enforce this.
+- **MUST** implement cleanup logic within `useEffect` for any subscriptions, timers, or listeners established by the effect.
+- **NEVER** call Hooks inside loops, conditions, or nested functions.
+
+## State Management
+- **MUST** use `useState` for simple, local component state.
+- **CONSIDER** `useReducer` for complex state logic within a single component or closely related components, especially when the next state depends on the previous one or involves multiple sub-values.
+- **USE** Context API judiciously for sharing state across the component tree (e.g., theme, authentication status). Be aware of potential performance impacts as consumers re-render on any context change.
+- **MUST** lift state up only to the lowest common ancestor component that requires it. Avoid unnecessary global state.
+- **AVOID** prop drilling (passing props down multiple levels). Use Context API, component composition, or a dedicated state management library instead.
+- **CONSIDER** state management libraries (e.g., Zustand, Jotai, Redux Toolkit) for complex, app-wide state, especially in larger applications. Choose based on project needs and complexity.
+
+## Performance Optimization
+- **MUST** optimize list rendering using `FlatList` or `SectionList` for long lists. **NEVER** map over an array to render items inside a `ScrollView` for potentially long lists.
+- **IMPLEMENT** `getItemLayout` prop for `FlatList` when list item heights are fixed and known, significantly improving performance.
+- **USE** `useMemo` to memoize expensive computations.
+- **USE** `useCallback` to memoize functions passed as props to memoized child components (`React.memo`), preventing unnecessary re-renders.
+- **WRAP** components with `React.memo` when they are computationally expensive to render or frequently re-render with the same props. Profile first to identify bottlenecks.
+- **OPTIMIZE** image loading and display: use appropriate formats (e.g., WebP), resize images to the required dimensions, and **CONSIDER** using `expo-image` for caching and advanced features.
+- **PROFILE** application performance using the React DevTools Profiler and platform-specific tools (Flipper, Xcode Instruments, Android Studio Profiler) to identify and address bottlenecks.
+- **MINIMIZE** work on the JavaScript thread. Avoid heavy computations during render or animations.
+- **MINIMIZE** frequent or large data transfers over the React Native bridge.
+- **ANALYZE** bundle size using tools like `expo-bundle-analyzer` and implement optimizations if needed.
+
+## Styling
+- **MUST** use `StyleSheet.create` to define component styles for performance benefits and better organization.
+- **STRONGLY PREFER** `StyleSheet` over inline styles. Use inline styles only for dynamic values that change frequently.
+- **ORGANIZE** styles logically. **PREFER** co-locating styles within the component file or in a separate `*.styles.ts` file for larger components.
+- **CONSIDER** established UI libraries (e.g., Tamagui, React Native Paper, NativeBase) or styling solutions (e.g., NativeWind, Restyle) for design consistency, theming, and utility props, based on project requirements.
+- **ADAPT** styles for different platforms (`Platform.select`) or screen sizes/orientations (`useWindowDimensions`) when necessary.
+
+## Navigation
+- **MUST** use a standard, well-maintained navigation library, **PREFER** React Navigation (`@react-navigation/native`).
+- **STRUCTURE** navigation logically using appropriate navigators (Stack, Tab, Drawer).
+- **MINIMIZE** data passed as navigation parameters. **PREFER** passing only IDs or essential identifiers and fetching required data within the destination screen/component or retrieving from a state management solution.
+- **CONSIDER** navigation state persistence if maintaining navigation history across app sessions is required.
+
+## Forms
+- **MUST** use controlled components for form inputs (`TextInput`, `Switch`, custom inputs), managing their state with `useState` or a form library.
+- **IMPLEMENT** robust client-side and (where applicable) server-side form validation.
+- **CONSIDER** using dedicated form libraries like `react-hook-form` or `Formik` for managing complex forms, validation, and submission states.
+- **PROVIDE** clear, immediate user feedback for input states (e.g., validation errors, loading indicators during submission, success messages).
+- **ENSURE** all form inputs are accessible (use `accessibilityLabel`, connect labels to inputs, provide clear error messages).
+
+## Error Handling
+- **IMPLEMENT** React Error Boundaries at appropriate levels in the component tree to catch rendering errors and display fallback UI.
+- **HANDLE** asynchronous errors (e.g., API requests, async storage) gracefully using `try/catch` blocks with `async/await` or `.catch()` with Promises.
+- **PROVIDE** user-friendly error messages that explain the issue and suggest potential next steps, avoiding technical jargon.
+- **LOG** errors effectively using a dedicated logging service (e.g., Sentry via `sentry-expo`) with relevant context to aid debugging.
+
+## Testing
+- **WRITE** unit tests for components (especially UI components and hooks) and utility functions using Jest and React Native Testing Library (`@testing-library/react-native`). Focus on testing component behavior from the user's perspective.
+- **IMPLEMENT** integration tests for user flows involving multiple components, navigation, and state management.
+- **CONSIDER** End-to-End (E2E) testing frameworks like Detox or Maestro for testing critical user paths across the entire application in a real or simulated environment.
+- **MOCK** external dependencies (API calls, native modules, async storage) effectively during testing using Jest's mocking capabilities.
+
+## Accessibility (a11y)
+- **MUST** use appropriate accessibility props (`accessibilityLabel`, `accessibilityHint`, `accessibilityRole`, `accessibilityState`, etc.) on all interactive elements and informative content.
+- **ENSURE** interactive elements have a minimum touch target size (e.g., 44x44 points).
+- **TEST** application accessibility using screen readers (VoiceOver on iOS, TalkBack on Android) and accessibility inspectors.
+- **MANAGE** focus appropriately, especially in modals, forms, and complex navigation flows. Use `accessible={true}` to group elements for screen readers when logical.
+
+## Expo Specific Guidelines
+- **LEVERAGE** Expo Go during development for rapid iteration and testing on physical devices.
+- **MUST** use EAS (Expo Application Services) via `eas build` for creating production builds for app stores or internal distribution.
+- **MUST** use EAS Submit (`eas submit`) for streamlined app store submissions.
+- **UNDERSTAND** when to use Expo Prebuild (`npx expo prebuild`): required when adding custom native code or libraries not built with the modern Expo Modules API, effectively ejecting to the bare workflow while maintaining Expo tooling benefits.
+- **UTILIZE** Expo Config Plugins to automate modifications to native project configuration (`Info.plist`, `AndroidManifest.xml`, `build.gradle`, etc.) during the prebuild process.
+- **PREFER** libraries that support the Expo Modules API for seamless integration without requiring prebuild.
+- **IMPLEMENT** Over-The-Air (OTA) updates using `expo-updates` and EAS Update for deploying JavaScript and asset changes to users without requiring a new store submission. Configure updates properly (e.g., runtime version, channel).
+
+## Code Organization & Documentation
+- **PREFER** grouping files by feature or domain (e.g., `features/authentication/`, `features/profile/`) rather than only by type (e.g., `screens/`, `components/`). Place genuinely shared components/hooks in top-level `components/`, `hooks/` directories or a dedicated `shared/` or `lib/` directory.
+- **USE** clear and consistent naming conventions for files, folders, components, variables, and functions.
+- **MUST** configure and use absolute imports (`@/components/Button`) via `tsconfig.json` (`paths`) or `babel.config.js` (`babel-plugin-module-resolver`) for cleaner import paths.
+- **DOCUMENT** complex logic, custom hooks, non-obvious behaviors, and the props API of reusable components using JSDoc or TSDoc comments. 

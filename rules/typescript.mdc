@@ -1,0 +1,27 @@
+---
+description: Core TypeScript best practices for type safety, clarity, and maintainability.
+# Consider setting alwaysApply: true if these are universal project standards
+globs: ["**/*.ts", "**/*.tsx"]
+alwaysApply: false 
+---
+
+# Core TypeScript Guidelines
+
+**Core Principle:** Leverage TypeScript's static typing system to improve code quality, reduce runtime errors, and enhance developer experience.
+
+## Type Safety & Explicitness
+- **MUST** enable `strict` mode (and related strict flags like `noImplicitAny`, `strictNullChecks`, `strictFunctionTypes`, etc.) in `tsconfig.json`.
+- **MUST** provide explicit types for function parameters, return values, and variable declarations where the type cannot be easily inferred or where clarity is improved.
+- **AVOID** using the `any` type. If absolutely necessary, justify its use and consider `unknown` as a safer alternative.
+- **USE** specific types over general ones (e.g., `string` instead of `any`, `boolean` instead of `any`, specific object shapes instead of `object`).
+- **UTILIZE** built-in utility types (e.g., `Partial`, `Required`, `Readonly`, `Pick`, `Omit`) to create new types based on existing ones concisely.
+
+## Interfaces vs. Types
+- **PREFER** using `interface` for defining the shape of objects or classes, especially when intended for implementation or extension.
+- **PREFER** using `type` for defining unions, intersections, tuples, primitives, or more complex type manipulations using utility types.
+- **MAINTAIN** consistency within the project regarding the preferred usage of `interface` vs. `type`.
+
+## Readability & Maintainability
+- **USE** meaningful names for types and interfaces.
+- **KEEP** type definitions clear and focused. Avoid overly complex or deeply nested types where possible; refactor complex types into smaller, named types.
+- **EXPORT** types and interfaces from modules where they are defined to promote reusability.
