@@ -1,62 +1,43 @@
 ---
 description: Foundational guidelines for writing clean, maintainable, and human-readable code.
-globs: 
-alwaysApply: true
+globs: **/*
 ---
 
 # Foundational Clean Code Guidelines
 
-**Core Principle:** Apply these foundational guidelines universally when writing or modifying any code to ensure clarity, maintainability, and long-term quality.
+**Core Principle:** Apply these guidelines to ensure code clarity, maintainability, and readability.
 
-## Constants Over Magic Values
-- **MUST** replace hard-coded, unexplained values ("magic numbers" or "magic strings") with named constants.
-- **MUST** use descriptive constant names that clearly convey the value's purpose and meaning.
-- **SHOULD** group related constants together, typically at the top of the file or in a dedicated constants module/file.
+## Naming & Constants
 
-## Meaningful & Unambiguous Names
-- **MUST** choose names for variables, functions, classes, etc., that clearly reveal their purpose and usage.
-- **AVOID** cryptic abbreviations or single-letter names (except for conventional loop counters like `i`, `j`, `k`).
-- **ENSURE** names are searchable and distinct.
-- **AVOID** disinformation (names that imply something different from the actual behavior).
+- **MUST** replace magic values (unexplained numbers/strings) with named constants.
+- **MUST** use descriptive names for variables, functions, and classes that reveal their purpose.
+- **AVOID** cryptic abbreviations or single-letter names (except conventional loop counters).
+- **ENSURE** names are searchable, distinct, and don't imply incorrect behavior.
 
-## Effective Comments
-- **AVOID** comments that merely restate what the code does. **Focus on making the code itself self-documenting.**
-- **USE** comments primarily to explain *why* something is done in a particular way, especially for non-obvious logic, workarounds, or business rules.
-- **SHOULD** document public APIs (functions, classes, modules) clearly, explaining their purpose, parameters, return values, and any side effects or exceptions.
-- **AVOID** commented-out code. Remove it or use version control history.
+## Clean Structure
 
-## Single Responsibility Principle (SRP)
-- **MUST** ensure that each function, class, or module has one single, well-defined responsibility.
-- **MUST** keep functions small and focused. A function should do one thing well.
-- **REFACTOR** functions or classes that are doing too many things into smaller, more focused units.
+- **MUST** ensure each function, class, or module has a single, well-defined responsibility.
+- **MUST** keep functions small and focused on doing one thing well.
+- **MUST** maintain consistent formatting according to project standards.
+- **SHOULD** organize related code together within files and group files logically.
+- **SHOULD** use vertical spacing to separate logical code blocks.
 
-## Don't Repeat Yourself (DRY)
-- **MUST** identify and eliminate duplication in code logic.
-- **EXTRACT** repeated code blocks into reusable functions, components, or utilities.
-- **MAINTAIN** single sources of truth for data and configuration.
+## Code Duplication & Abstraction
 
-## Clean Structure & Formatting
-- **MUST** maintain consistent code formatting (indentation, spacing, line breaks) according to project standards (use linters and formatters like Prettier, ESLint).
-- **SHOULD** keep related code physically close together within a file.
-- **USE** vertical spacing (blank lines) to separate distinct logical blocks of code.
-- **ORGANIZE** code within files and directories logically (e.g., by feature, type).
+- **MUST** eliminate duplication in code logic (DRY principle).
+- **EXTRACT** repeated code into reusable functions, components, or utilities.
+- **SHOULD** hide implementation details and expose clear, minimal interfaces.
+- **PREFER** breaking down complex conditionals into smaller, well-named functions.
 
-## Encapsulation & Abstraction
-- **SHOULD** hide internal implementation details of components or modules.
-- **EXPOSE** clear, minimal, and well-defined interfaces (APIs).
-- **PREFER** breaking down complex conditional logic (nested `if` statements) into smaller, well-named functions or methods.
+## Comments & Documentation
 
-## Code Quality Maintenance
-- **PRACTICE** continuous refactoring: regularly improve the design of existing code without changing its external behavior.
-- **ADDRESS** technical debt proactively. Don't let small issues accumulate.
-- **FOLLOW** the Boy Scout Rule: Leave the code cleaner than you found it.
+- **FOCUS** on making code self-documenting through clear naming and structure.
+- **USE** comments to explain _why_ something is done a certain way, not what it does.
+- **SHOULD** document public APIs clearly, explaining purpose, parameters, and effects.
+- **AVOID** commented-out code; use version control instead.
 
-## Testing Practices
-- **SHOULD** write tests to cover critical functionality, edge cases, and error conditions.
-- **ENSURE** tests are readable, maintainable, and run reliably.
-- **CONSIDER** writing a failing test *before* fixing a bug (Test-Driven Development approach).
+## Maintenance Practices
 
-## Version Control Hygiene
-- **MUST** write clear, concise, and informative commit messages explaining the *what* and *why* of the change.
-- **MUST** make small, focused commits that represent a single logical change.
-- **USE** meaningful branch names that reflect the purpose of the branch (e.g., `feature/add-user-login`, `fix/incorrect-calculation`). 
+- **PRACTICE** continuous refactoring to improve code design without changing behavior.
+- **ADDRESS** technical debt proactively and leave code cleaner than you found it.
+- **MAKE** small, focused commits with clear messages explaining the what and why.

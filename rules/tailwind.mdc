@@ -1,79 +1,38 @@
 ---
 description: Unified Tailwind CSS & NativeWind guidelines for styling React (Web) and React Native applications.
-# Apply to relevant styling config, TSX/JSX files. Adjust globs based on project structure.
-globs: ["**/*.tsx", "**/*.jsx", "tailwind.config.js", "tailwind.config.ts", "**/*.css"]
+globs: **/ui/**/*.tsx, **/ui/**/*.jsx, **/components/**/*.tsx, **/components/**/*.jsx, **/screens/**/*.tsx, **/screens/**/*.jsx, tailwind.config.js, tailwind.config.ts, **/*.css
 ---
 
-# Unified Tailwind CSS & NativeWind Guidelines
+# Tailwind & NativeWind Guidelines
 
-**Core Principle:** Consistently apply Tailwind CSS utility classes (using NativeWind for React Native) for styling applications, adhering to configuration standards and best practices for maintainable, performant, and accessible UIs across both web and native platforms.
+**Core Principle:** Use Tailwind/NativeWind utilities consistently for styling across web and native platforms.
 
-## Version Requirements
-- **MUST** use **Tailwind CSS v3.4.17**. Verify in `package.json` if possible, but adhere to v3.4.17 syntax and features.
-- **DO NOT** use Tailwind CSS v4 features or configurations unless the project explicitly uses v4 (assume v3.4.17 unless otherwise specified).
-- **ENSURE** NativeWind version is compatible with the Tailwind CSS version used.
+## Version & Platform
 
-## Platform Identification & Usage Strategy
-- **CONTEXT ANALYSIS:** Before applying styles, **MUST** determine if the target file is part of a **React Native** or **React (Web)** project. Analyze:
-    - **Imports:** Look for `'react-native'` vs `'react'` imports.
-    - **Code:** Check for React Native components (`View`, `Text`, etc.) vs standard HTML elements/web components.
-    - **File Path:** Consider typical project structures (e.g., `screens/` often implies Native; `pages/` often implies Web).
-- **REACT NATIVE (NativeWind):**
-    - **MUST** use **NativeWind**. Apply utility classes directly via the `className` prop on React Native components (e.g., `<View className="p-4 bg-blue-500">`).
-    - **AVOID** using `StyleSheet.create` for styles achievable with NativeWind utilities.
-- **REACT (WEB) (Tailwind CSS):**
-    - **MUST** use standard **Tailwind CSS**. Apply utility classes directly via the `className` or `class` attribute on HTML elements or web components (e.g., `<div className="p-4 bg-blue-500">`).
-    - **AVOID** custom CSS files or `<style>` blocks whenever possible.
+- **USE** Tailwind CSS v3.x (current stable version)
+- **APPLY** NativeWind for React Native and Tailwind CSS for React Web projects
 
-## Configuration (`tailwind.config.js/ts`)
-- **MUST** configure `content` paths accurately to include all files containing Tailwind classes (JSX, TSX, HTML, etc.).
-- **SHOULD** extend the default theme (`theme.extend`) rather than overwriting it.
-- **DEFINE** custom design tokens (colors, spacing, fonts, breakpoints) within `theme.extend` for project-wide consistency.
-- **USE** official Tailwind CSS plugins where appropriate; configure them according to their documentation.
+## Key Platform Differences
 
-## Component Reusability & Styling Strategy
-- **PRIORITIZE REUSE:** Before implementing any new UI element, **ALWAYS** first search for existing components within the project's designated shared UI library folders (e.g., `src/components/ui/**/*`, `packages/ui/**/*`). **CONSIDER** using established libraries like `shadcn/ui` (web) or equivalent (native) if adopted by the project.
-- **EXTEND EXISTING:** If a similar component exists, **STRONGLY PREFER** extending or adapting it rather than creating a duplicate.
-- **CREATE REUSABLE:** When a new UI pattern is required, **ALWAYS** aim to create a new, reusable, and composable component in the appropriate shared UI library folder.
-- **MUST** use Tailwind/NativeWind utility classes directly in code.
-- **USE** `@apply` directives (in global CSS files like `index.css`, **NOT** component styles) sparingly, only for highly repeated, complex utility combinations or base element styling.
-- **GROUP** related utilities logically for readability (e.g., layout, spacing, typography, color).
+- **Platform targeting:** Use platform modifiers (`ios:`, `android:`, `web:`, `native:`) when needed
+- **Explicit styles:** Always provide both states for conditional styling in React Native
+  ```tsx
+  ✅ <Text className="text-black dark:text-red-500" />
+  ❌ <Text className="dark:text-white-500" />
+  ```
+- **Layout differences:** React Native and web have different flex defaults - explicitly set flex-direction and flex properties
 
-## Layout & Spacing
-- **MUST** use Flexbox (`flex`, `items-*`, `justify-*`) and Grid (`grid`, `grid-cols-*`, `gap-*`) utilities for layout. (Note: Grid support in NativeWind might have limitations compared to web).
-- **MUST** use Tailwind's spacing scale (`p-*`, `m-*`, `space-*-*`, `gap-*`) for consistency. **AVOID** arbitrary pixel values.
-- **UTILIZE** responsive prefixes (e.g., `md:`, `lg:`) for adapting layout and spacing.
+## Core Guidelines
 
-## Typography
-- **MUST** use Tailwind's typography utilities (`text-*`, `font-*`, `leading-*`, `tracking-*`).
-- **CONFIGURE** custom fonts via the Tailwind config file (ensure font files are correctly linked for web/native).
-- **ENSURE** sufficient color contrast for text.
+- **EXCLUSIVELY** use Tailwind/NativeWind utilities for styling
+- **AVOID** inline styles, StyleSheet.create, or traditional CSS
+- **USE** Flexbox (`flex`, `items-*`, `justify-*`) for layout
+- **FOLLOW** Tailwind's spacing scale and color themes
+- **EMPLOY** responsive prefixes (`md:`, `lg:`) and state variants (`hover:`, `focus:`)
+- **TEST** layouts across multiple screen sizes and platforms
 
-## Color & Theme
-- **MUST** use colors defined in the Tailwind theme (`bg-*`, `text-*`, `border-*`).
-- **IMPLEMENT** dark mode using Tailwind's `dark:` variant if required.
-- **USE** opacity utilities (`opacity-*`, `bg-opacity-*`, etc.) correctly.
+## Documentation
 
-## Responsive Design
-- **PREFER** a mobile-first approach.
-- **DEFINE** and use consistent breakpoints via Tailwind config.
-- **TEST** layouts across various screen sizes/devices.
-
-## State & Interaction
-- **MUST** use state variants (`hover:`, `focus:`, `active:`, `disabled:`, `group-hover:`, etc.) for styling interactive elements. (Note: `hover` has limited applicability in React Native without specific libraries).
-- **IMPLEMENT** smooth transitions/animations using platform-appropriate techniques (Tailwind utilities for web, potentially React Native Animated or Reanimated alongside NativeWind for native).
-
-## Performance & Optimization
-- **ENSURE** `content` paths in `tailwind.config.js/ts` are correct for effective purging/tree-shaking.
-- **MINIMIZE** the use of `@apply` and custom CSS/StyleSheet properties.
-- **MONITOR** bundle sizes (CSS for web, JS for native).
-
-## Accessibility (a11y)
-- **ENSURE** sufficient color contrast ratios.
-- **USE** focus variants (`focus:`, `focus-visible:`) for clear visual focus indicators.
-- **APPLY** appropriate accessibility props/attributes (`accessibilityLabel`, `role`, `aria-*`) alongside styling.
-
-## Information & Verification
-- **WHEN UNSURE** about specific classes or concepts:
-    - **For NativeWind:** **ALWAYS** search the official documentation first: `site:https://www.nativewind.dev <your search query>`
-    - **For Tailwind CSS:** **ALWAYS** search the official v3 documentation first: `site:https://v3.tailwindcss.com/docs <your search query>`
+- When unsure, consult official documentation:
+  - NativeWind: https://www.nativewind.dev
+  - Tailwind CSS v3: https://v3.tailwindcss.com/docs

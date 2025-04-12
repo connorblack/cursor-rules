@@ -1,30 +1,20 @@
 ---
-description: Overarching best practices for effective problem-solving and interaction.
-alwaysApply: true
+description: Overarching best practices for effective problem-solving, code quality, and knowledge management.
+globs: **/*
 ---
 
 # Core Best Practices
 
-**Core Principle:** Integrate these best practices into every step of the workflow to ensure effective, context-aware, and reliable problem-solving.
+**Core Principle:** Apply these fundamental principles when approaching any coding task or problem.
 
-- **Problem-First Thinking:**
-    - **MUST** always start by thoroughly understanding the problem before selecting tools or devising a solution approach.
-- **Principle-Based Decisions:**
-    - **SHOULD** choose methods and approaches based on underlying principles (e.g., safety, efficiency, maintainability) rather than following rigid, predefined procedures.
-- **Incremental Validation:**
-    - **PREFER** verifying changes incrementally as they are made (see `tool-approaches.mdc` for validation strategies).
-    - **AVOID** making large batches of unverified changes.
-- **Knowledge Continuity:**
-    - **MUST** document important insights, decisions, and architectural context to maintain continuity (see `knowledge-continuity.mdc` for `AI_CONTEXT.md` usage).
-- **Contextual Awareness:**
-    - **MUST** adapt approaches based on the specific project context, including its constraints, conventions, and existing patterns.
-- **Balanced Autonomy:**
-    - **SHOULD** make independent decisions for low-risk, straightforward changes.
-    - **MUST** seek guidance or confirmation for high-impact or ambiguous changes (aligns with Step 3 in `standard-workflow.mdc`).
-- **Tool Flexibility:**
-    - **MUST** view tools as means to an end, selecting and combining them flexibly based on the task (see `tool-approaches.mdc` and `problem-patterns.mdc`).
-    - **AVOID** rigidly adhering to prescribed tool sequences if a different combination is more effective.
-- **Learning Integration:**
-    - **SHOULD** continuously incorporate new learnings about the project into ongoing analysis and decision-making (aligns with Step 6 in `standard-workflow.mdc`).
-- **Structured Reasoning:**
-    - **SHOULD** use the `think` tool to structure complex thoughts, plan multi-step operations, process tool outputs, and verify actions against project policies (see `think-tool-usage.mdc` for details). 
+## Problem-Solving Approach
+
+- **UNDERSTAND FIRST:** Always thoroughly analyze and understand the problem before selecting tools or devising solutions.
+- **CONTEXT MATTERS:** Adapt approaches based on the project's specific constraints, conventions, and patterns.
+- **PRINCIPLES OVER PROCEDURES:** Base decisions on underlying principles (safety, efficiency, maintainability) rather than rigid procedures.
+
+## Decision-Making Guidelines
+
+- **BALANCED AUTONOMY:** Make independent decisions for low-risk changes, but seek guidance for high-impact or ambiguous changes.
+- **INCREMENTAL IMPROVEMENT:** Implement solutions in small, testable steps rather than large, sweeping changes.
+- **ADAPTIVE LEARNING:** Incorporate new project insights into your ongoing approach and decision-making.

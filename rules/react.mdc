@@ -1,81 +1,46 @@
 ---
 description: React best practices and patterns for modern web applications (React >=18)
 globs: **/*.tsx, **/*.jsx, **/components/**/*, src/**/*
+alwaysApply: false
 ---
 
-# React Best Practices and Guidelines (Web)
+# React Best Practices
 
-**Core Principle:** Adhere to these guidelines when developing React web applications to ensure code quality, maintainability, performance, and consistency.
+**Core Principle:** Follow these guidelines when developing modern React applications.
 
-## Component Reusability & Creation Strategy
-- **PRIORITIZE REUSE:** Before implementing any new UI element, **ALWAYS** first search for existing components within the project's designated shared UI library folders (e.g., `src/components/ui/**/*`, `src/shared/ui/**/*`, or similar standard locations). **Adapt the path based on the specific project structure.**
-- **EXTEND EXISTING:** If a similar component exists, **STRONGLY PREFER** extending or adapting it with necessary props or variations rather than creating a new, duplicative component. Document the rationale if extension is not feasible.
-- **CREATE REUSABLE:** When a new UI pattern is genuinely required and no suitable existing component is found, **ALWAYS** design and implement it as a new, reusable, and composable component. Avoid creating single-use UI components.
-- **CORRECT PLACEMENT:** **ENSURE** any newly created reusable UI components are placed in the appropriate shared UI library folder (e.g., `src/components/ui/`, `src/shared/ui/`). Do **NOT** place reusable UI components within feature-specific directories.
+## Component Design
 
-## Component Structure
-- **MUST** use functional components with Hooks. Avoid class components entirely.
-- **MUST** keep components small, focused on a single responsibility, and highly reusable.
-- **MUST** utilize standard HTML semantic elements appropriately, potentially wrapped by components.
-- **PREFER** extracting reusable non-rendering logic into custom hooks (`useCustomHook`).
-- **MUST** favor composition over inheritance for sharing component logic and UI.
-- **MUST** implement precise prop types using TypeScript interfaces or types. Avoid `any` or overly permissive types.
-- **MUST** split large components into smaller, more manageable sub-components.
+- **Reusability First:**
 
-## Hooks
-- **MUST** strictly follow the Rules of Hooks (only call Hooks at the top level, only call from React functions).
-- **PREFER** creating custom hooks (`useCustomHook`) to encapsulate and reuse stateful logic.
-- **ENSURE** custom hooks have a single, well-defined responsibility.
-- **MUST** manage `useEffect`, `useMemo`, `useCallback` dependency arrays accurately. Include all values the effect/memoization depends on. Use `eslint-plugin-react-hooks` to enforce this.
-- **MUST** implement cleanup logic within `useEffect` for any subscriptions, timers, or listeners established by the effect.
-- **NEVER** call Hooks inside loops, conditions, or nested functions.
+  - Use existing components when available before creating new ones
+  - Follow project component hierarchy (common → primitives → custom)
+  - Place reusable components in shared libraries, not feature-specific directories
 
-## State Management
-- **MUST** use `useState` for simple, local component state.
-- **CONSIDER** `useReducer` for complex state logic within a single component or closely related components.
-- **USE** Context API judiciously for sharing state across the component tree (e.g., theme, authentication status). Be aware of potential performance impacts.
-- **MUST** lift state up only to the lowest common ancestor component that requires it. Avoid unnecessary global state.
-- **AVOID** prop drilling. Use Context API, component composition, or a dedicated state management library instead.
-- **CONSIDER** state management libraries (e.g., Zustand, Jotai, Redux Toolkit) for complex, app-wide state. Choose based on project needs.
+- **Structure:**
+  - Use functional components with Hooks (avoid class components)
+  - Keep components small and focused on single responsibilities
+  - Use TypeScript with precise prop types
+  - Extract non-UI logic into custom hooks
+  - Cross-platform components should use platform-specific files (index.tsx/index.web.tsx)
 
-## Performance Optimization
-- **USE** `useMemo` to memoize expensive computations.
-- **USE** `useCallback` to memoize functions passed as props to memoized child components (`React.memo`).
-- **WRAP** components with `React.memo` when they are computationally expensive to render or frequently re-render with the same props. Profile first.
-- **IMPLEMENT** code splitting and lazy loading (e.g., `React.lazy` with Suspense) for route-based or component-based code splitting to reduce initial bundle size.
-- **MUST** use proper `key` props when rendering lists. Keys should be stable, predictable, and unique among siblings.
-- **PROFILE** application performance using the React DevTools Profiler and browser performance tools.
-- **OPTIMIZE** event handlers (e.g., use event delegation where appropriate, debounce/throttle handlers for frequent events).
+## Hooks & Performance
 
-## Forms
-- **MUST** use controlled components for form inputs, managing their state with `useState` or a form library.
-- **IMPLEMENT** robust client-side and server-side form validation.
-- **CONSIDER** using dedicated form libraries like `react-hook-form` or `Formik` for managing complex forms, validation, and submission states.
-- **PROVIDE** clear, immediate user feedback for input states (validation errors, loading indicators, success messages).
-- **ENSURE** all forms and inputs are accessible (use `<label>`, `id`, `aria-` attributes).
+- Follow React Hooks rules (call at top level, only in React functions)
+- Manage dependency arrays accurately in useEffect/useMemo/useCallback
+- Implement cleanup for subscriptions and timers
+- Optimize list rendering with virtualized lists
+- Use performance optimization techniques (useMemo, React.memo) when necessary
+
+## Styling & State
+
+- Use Tailwind/NativeWind exclusively for styling (see tailwind.mdc)
+- Keep state at appropriate levels - local when possible, global when necessary
+- Use useState for simple state, useReducer for complex logic
+- Employ Context API for shared state, or MobX if global state becomes complex
 
 ## Error Handling
-- **IMPLEMENT** React Error Boundaries at appropriate levels to catch rendering errors and display fallback UI.
-- **HANDLE** asynchronous errors gracefully (e.g., in API calls using `try/catch` or `.catch()`).
-- **PROVIDE** user-friendly error messages.
-- **LOG** errors effectively using a dedicated logging service (e.g., Sentry).
 
-## Testing
-- **WRITE** unit tests for components (especially UI components and hooks) and utility functions using Jest and React Testing Library (`@testing-library/react`). Focus on testing component behavior from the user's perspective.
-- **IMPLEMENT** integration tests for user flows involving multiple components.
-- **CONSIDER** End-to-End (E2E) testing frameworks like Cypress or Playwright for critical user paths.
-- **MOCK** external dependencies (API calls, etc.) effectively during testing.
-
-## Accessibility (a11y)
-- **MUST** use semantic HTML elements (`<nav>`, `<main>`, `<article>`, `<button>`, etc.) correctly.
-- **IMPLEMENT** appropriate ARIA attributes (`role`, `aria-label`, `aria-describedby`, etc.) where semantic HTML is insufficient.
-- **ENSURE** interactive elements are keyboard navigable and operable.
-- **TEST** accessibility using automated tools (e.g., Axe) and manual testing with screen readers.
-- **MANAGE** focus appropriately, especially in modals, forms, and dynamic content changes.
-- **PROVIDE** meaningful `alt` text for images.
-
-## Code Organization & Documentation
-- **PREFER** grouping files by feature or domain rather than only by type. Place shared components/hooks in common directories (e.g., `src/components`, `src/hooks`, `src/shared`).
-- **USE** clear and consistent naming conventions.
-- **MUST** configure and use absolute imports (`@/components/Button`) via `tsconfig.json` (`paths`) or `jsconfig.json`.
-- **DOCUMENT** complex logic, custom hooks, non-obvious behaviors, and the props API of reusable components using JSDoc or TSDoc comments. 
+- Implement Error Boundaries at appropriate component tree levels
+- Handle async errors with try/catch
+- Provide user-friendly error messages
+- Log errors consistently using project logging tools

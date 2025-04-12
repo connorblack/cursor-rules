@@ -1,0 +1,39 @@
+---
+description: Core concepts that make up the foundation of file-based routing in Expo Router, and how an Expo Router project might differ in structure from other React Native projects
+globs: **/app/**/*.tsx
+---
+
+# Expo Router Core Concepts
+
+**Core Principle:** Expo Router uses file-based routing where the file structure in the app directory directly maps to navigation routes.
+
+## Key Concepts
+
+1. **File-Based Routing Structure**
+
+   - Files inside the **app** directory define pages/screens with default exports
+   - All screens have corresponding URL paths matching their location
+   - The **app/index.tsx** (or first index.tsx found) is the initial route
+
+2. **Special Files & Conventions**
+
+   - **\_layout.tsx** files configure navigation groups and replace App.jsx initialization
+   - Route groups (directories with parentheses) don't affect URL paths
+   - Non-navigation components should live outside the app directory
+
+3. **Navigation Fundamentals**
+   - Expo Router is built on React Navigation
+   - URLs work for both web navigation and mobile deep linking
+   - Standard React Navigation configuration options apply
+
+## Directory Structure Example
+
+```
+app/
+├── index.tsx         # Initial route - appears at root URL
+├── home.tsx          # Route: /home
+├── _layout.tsx       # Root layout for initialization code
+├── profile/          # Route group
+│   └── friends.tsx   # Route: /profile/friends
+└── components/       # Incorrectly placed - should be outside app/
+```

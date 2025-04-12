@@ -1,32 +1,40 @@
 ---
 description: Common patterns for understanding, implementing, and analyzing problems within a codebase.
-alwaysApply: true
+globs: **/*
 ---
 
 # Problem-Solving Patterns
 
-**Core Principle:** Adapt these common patterns based on the specific problem, project context, and available tools to effectively analyze, implement, and validate solutions.
+**Core Principle:** Apply these structured approaches to common coding tasks and challenges.
 
-## Understanding & Analysis Patterns
+## Analysis Patterns
 
-- **Architecture Discovery:** Understand project structure and component interactions.
-    - *Approach:* Examine configs → Map directories → Identify dependencies → Analyze workflows.
-    - *Adapt based on:* Project size, framework, documentation.
-- **Change Impact Assessment:** Determine effects of proposed changes.
-    - *Approach:* Trace dependencies → Identify affected modules → Evaluate risks → Plan testing.
-    - *Adapt based on:* Coupling, test coverage, deployment model.
-- **Performance Bottleneck Identification:** Locate performance issues.
-    - *Approach:* Profile execution → Analyze data flow → Identify expensive operations → Test hypotheses.
-    - *Adapt based on:* Metrics, characteristics, goals.
+- **Architecture Discovery**
+
+  - Examine configs → Map directories → Identify dependencies → Analyze workflows
+  - Focus on understanding project structure and component interactions
+
+- **Change Impact Assessment**
+
+  - Trace dependencies → Identify affected modules → Evaluate risks → Plan testing
+  - Scale analysis based on coupling, test coverage, and deployment model
+
+- **Performance Analysis**
+  - Profile execution → Analyze data flow → Identify expensive operations → Test improvements
+  - Focus on metrics that matter to the specific use case
 
 ## Implementation Patterns
 
-- **Feature Addition:** Implement new functionality.
-    - *Approach:* Identify insertion points → Design interface → Implement logic → Connect → Test.
-    - *Adapt based on:* Complexity, architecture, existing patterns.
-- **Refactoring:** Improve code structure without changing behavior.
-    - *Approach:* Identify issue → Design improvement → Incremental changes → Verify behavior.
-    - *Adapt based on:* Test coverage, complexity, scope.
-- **Bug Resolution:** Fix incorrect behavior.
-    - *Approach:* Reproduce → Trace → Identify root cause → Design minimal fix → Verify.
-    - *Adapt based on:* Bug complexity, constraints, regression risk. 
+- **Feature Addition**
+
+  - Identify insertion points → Design interface → Implement logic → Connect → Test
+  - Use existing patterns and maintain architectural consistency
+
+- **Refactoring**
+
+  - Identify issue → Design improvement → Make incremental changes → Verify behavior
+  - Focus on preserving behavior while improving structure
+
+- **Bug Resolution**
+  - Reproduce → Trace → Identify root cause → Design minimal fix → Verify
+  - Prioritize targeted fixes that minimize regression risk
