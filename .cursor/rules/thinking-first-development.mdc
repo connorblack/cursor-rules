@@ -1,0 +1,53 @@
+---
+name: thinking-first-development
+description: Sequential thinking drives all complex work
+alwaysApply: true
+references: [universal-mcp-loop]
+---
+
+# Mandatory Sequential Thinking Triggers
+
+## Start Thinking When
+
+- Code exceeds 10 lines
+- Multiple files involved
+- User asks "how" or "why"
+- Any optimization request
+- Debugging any issue
+- Comparing approaches
+
+## Thinking Pattern
+
+### Phase 1: Understand
+
+- Decompose the request
+- Identify constraints
+- Check memory for similar problems
+- Search for current approaches
+
+### Phase 2: Design
+
+- Consider alternatives
+- Evaluate trade-offs
+- Select approach
+- Document reasoning
+
+### Phase 3: Implement
+
+- Code with context
+- Verify assumptions
+- Test edge cases
+- Store learnings
+
+## Revision Triggers
+
+- Search reveals better approach
+- Memory contains conflicting pattern
+- Error indicates wrong assumption
+- Performance doesn't meet expectations
+
+## Branch When
+
+- Multiple valid solutions exist
+- Uncertainty about approach
+- Need to explore edge cases

@@ -1,0 +1,41 @@
+---
+name: memory-enhancement-loop
+description: Ensures memory graph continuously improves
+alwaysApply: true
+references: [universal-mcp-loop]
+---
+
+# Memory Graph Building
+
+## Automatic Entity Creation
+
+From code analysis, create entities for:
+
+- Every imported package → version, purpose
+- Every defined function → signature, complexity
+- Every API endpoint → method, response type
+- Every configuration → value, reasoning
+- Every error encountered → frequency, solutions
+
+## Automatic Relationship Mapping
+
+- Code dependencies: A REQUIRES B
+- Error patterns: ERROR_X SOLVED_BY APPROACH_Y  
+- Performance: OPTIMIZATION_A IMPROVES METRIC_B
+- User preferences: USER PREFERS PATTERN_X
+
+## Query Intelligence
+
+Before answering, ALWAYS:
+memories = neo4j.search_memories(f"{topic} {project_context}")
+if memories:
+context = build_context_from_memories(memories)
+enhance_response_with_context(context)
+
+## Session Summarization
+
+At natural breakpoints:
+summary = sequential_thinking.summarize_session()
+neo4j.create_entities([f"Session_{timestamp}"])
+neo4j.add_observations(summary)
+neo4j.create_relations("Session", "TAUGHT", learned_concepts)

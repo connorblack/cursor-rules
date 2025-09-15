@@ -1,0 +1,79 @@
+---
+alwaysApply: false
+---
+## When to Use Notion API Tools
+
+Automatically activate Notion tools for:
+
+### Workspace Management
+
+- **User operations**: Getting user info, listing workspace members
+- **Database operations**: Creating, querying, updating databases
+- **Page management**: Creating, updating, retrieving pages
+- **Block operations**: Managing content blocks within pages
+- **Search operations**: Finding content across workspace
+
+### Tool Categories & Usage
+
+**User Management:**
+
+- `API-get-user` - Individual user details
+- `API-get-users` - List all workspace users
+- `API-get-self` - Current integration user info
+
+**Database Operations:**
+
+- `API-create-a-database` - New database creation
+- `API-post-database-query` - Filter and sort database entries
+- `API-retrieve-a-database` - Get database schema
+- `API-update-a-database` - Modify database properties
+
+**Page Operations:**
+
+- `API-post-page` - Create new pages
+- `API-retrieve-a-page` - Get page content
+- `API-patch-page` - Update page properties
+- `API-retrieve-a-page-property` - Get specific page property
+
+**Block Management:**
+
+- `API-get-block-children` - List child blocks
+- `API-patch-block-children` - Append new blocks
+- `API-retrieve-a-block` - Get block details
+- `API-update-a-block` - Modify block content
+- `API-delete-a-block` - Remove blocks
+
+**Search & Comments:**
+
+- `API-post-search` - Search across workspace
+- `API-create-a-comment` - Add comments
+- `API-retrieve-a-comment` - Get comment details
+
+## Concrete Trigger Examples
+
+User asks: "Create a project tracker in Notion"
+→ Use: `API-create-a-database` → `API-post-page` for entries
+
+User asks: "Update my Notion task list"
+→ Use: `API-post-database-query` → `API-patch-page` for updates
+
+User asks: "Find all pages mentioning Q4 goals"
+→ Use: `API-post-search` with query parameters
+
+## Workflow Patterns
+
+**Creating structured content:**
+
+1. Create database with schema
+2. Add pages as database entries
+3. Populate blocks within pages
+4. Set properties and relations
+
+**Bulk operations:**
+
+1. Query database for items
+2. Iterate through results
+3. Apply updates to each item
+4. Verify changes
+
+Remember: Chain operations logically - retrieve before updating, check permissions before creating.

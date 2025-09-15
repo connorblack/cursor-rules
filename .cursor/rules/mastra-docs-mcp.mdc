@@ -1,0 +1,73 @@
+---
+description: Documentation, examples, and courses for the Mastra framework
+alwaysApply: false
+---
+## When to Use Mastra Tools
+
+Automatically activate Mastra tools when users ask about:
+
+### Documentation & Learning Triggers
+
+- **Framework questions**: "How does Mastra work?", "What is Mastra used for?"
+- **Implementation help**: "How do I use Mastra for [use case]?"
+- **Course requests**: "Teach me Mastra", "Create a Mastra tutorial"
+- **Examples needed**: "Show me Mastra examples for [feature]"
+- **Recent updates**: "What's new in Mastra?", "Mastra changelog"
+
+### Tool Usage Patterns
+
+**`mastraDocs`** - Primary documentation reference:
+
+- Architecture explanations
+- API references
+- Configuration options
+- Core concepts
+
+**`mastraExamples`** - Real-world implementations:
+
+- Code snippets for specific features
+- Complete project examples
+- Integration patterns
+- Best practices demonstrations
+
+**`mastraBlog`** - Updates and insights:
+
+- New feature announcements
+- Use case studies
+- Community highlights
+
+**`mastraChanges`** - Version tracking:
+
+- Breaking changes
+- Migration guides
+- New features by version
+
+### Interactive Course Tools
+
+**Course Management Flow:**
+
+1. `startMastraCourse` - Initialize a new learning path
+2. `getMastraCourseStatus` - Check progress
+3. `startMastraCourseLesson` - Begin specific lesson
+4. `nextMastraCourseStep` - Advance through content
+5. `clearMastraCourseHistory` - Reset for fresh start
+
+## Concrete Trigger Examples
+
+User asks: "How do I integrate Mastra with my API?"
+→ Use: `mastraDocs` for concepts → `mastraExamples` for code samples
+
+User asks: "Teach me Mastra step by step"
+→ Use: `startMastraCourse` → Follow with lesson progression tools
+
+User asks: "What's the latest Mastra update?"
+→ Use: `mastraChanges` for changelog → `mastraBlog` for detailed explanations
+
+## Integration Rule
+
+Present Mastra information naturally:
+
+- Start with documentation for concepts
+- Provide examples for implementation
+- Offer interactive courses for comprehensive learning
+- Reference changes when version-specific issues arise

@@ -1,0 +1,80 @@
+---
+description: Graph-based memory system for persistent context and relationships
+alwaysApply: true
+---
+## When to Use Neo4j Memory Tools
+
+Automatically activate memory tools for:
+
+### Memory Operations
+
+- **Context building**: Storing conversation context, project details, user preferences
+- **Relationship mapping**: Connecting related concepts, people, or events
+- **Knowledge retrieval**: Finding previously stored information
+- **Pattern recognition**: Identifying connections across memories
+
+### Tool Categories
+
+**Creation Tools:**
+
+- `create_entities` - Store new concepts, people, or things
+- `create_relations` - Link entities with typed relationships
+- `add_observations` - Attach facts or properties to entities
+
+**Retrieval Tools:**
+
+- `read_graph` - Visualize entire memory structure
+- `search_memories` - Query across all stored information
+- `find_memories_by_name` - Locate specific entities
+
+**Maintenance Tools:**
+
+- `delete_entities` - Remove outdated entities
+- `delete_relations` - Unlink connections
+- `delete_observations` - Clear properties
+
+## Memory Patterns
+
+**Building Context:**
+Create entities for main concepts
+Add observations about each entity
+Create relations between related entities
+Query to retrieve full context
+
+**Tracking Projects:**
+
+Create project entity
+Add team member entities
+Create "WORKS_ON" relations
+Add observations for progress/status
+Search for project updates
+
+## Concrete Trigger Examples
+
+User says: "Remember that John is the project lead for Alpha"
+→ Use: `create_entities(["John", "Project Alpha"])` → `create_relations("John", "LEADS", "Project Alpha")`
+
+User asks: "What do you know about the marketing campaign?"
+→ Use: `search_memories("marketing campaign")` → Present connected information
+
+User says: "Connect the budget discussion to Q4 planning"
+→ Use: `find_memories_by_name("budget discussion")` → `create_relations("budget discussion", "RELATES_TO", "Q4 planning")`
+
+## Graph Thinking
+
+Structure memories as graphs:
+
+- **Entities**: Nouns (people, places, things, concepts)
+- **Relations**: Verbs (KNOWS, OWNS, MANAGES, INCLUDES)
+- **Observations**: Adjectives/Properties (status: active, priority: high)
+
+## Integration Rule
+
+Use memory tools to:
+
+- Maintain context across conversations
+- Build accumulated knowledge
+- Discover non-obvious connections
+- Provide personalized responses based on history
+
+Remember: Graph memories create richer context than linear storage.
