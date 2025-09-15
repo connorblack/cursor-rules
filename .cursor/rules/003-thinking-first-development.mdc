@@ -1,0 +1,70 @@
+---
+name: thinking-first-development
+description: Strategic thinking for complex tasks
+alwaysApply: true
+---
+
+# When to Think (1-2 times per task)
+
+## Mandatory Triggers:
+- **Task start** with multiple requirements
+- **Uncertainty** about approach (confidence < 80%)
+- **Multiple valid solutions** need comparison
+- **Architecture decisions** required
+
+## Skip Thinking For:
+- Single function updates
+- Typo/syntax fixes
+- Boilerplate generation
+- Tasks with clear, single approach
+
+# Efficient Thinking Pattern
+
+## Single-Pass Thinking (for most tasks):
+```
+sequential_thinking(
+  thought: "Decompose task: [requirements]. Approach: [method]. 
+           Tradeoffs: [considerations]. Decision: [choice]",
+  thoughtNumber: 1,
+  totalThoughts: 1,
+  nextThoughtNeeded: false
+)
+```
+
+## Multi-Step Thinking (complex only):
+Use when task has 3+ interconnected components or unclear requirements
+
+### Step 1: Understand
+- Decompose requirements
+- Identify constraints
+- Check memory for patterns
+
+### Step 2: Design
+- Evaluate 2-3 approaches
+- Consider tradeoffs
+- Select best fit
+
+### Step 3: Validate
+- Verify approach feasibility
+- Check for edge cases
+- Confirm decision
+
+# Revision Triggers
+
+**Start revision only if:**
+- Search reveals fundamental issue with approach
+- Error indicates wrong assumption
+- User feedback contradicts plan
+
+**Use `isRevision: true` and `branchFromThought: N`**
+
+# Thinking Efficiency
+
+## Batch related decisions:
+Instead of thinking per function, think about entire module/feature
+
+## Cache thinking results:
+Don't re-think the same problem in same session
+
+## Document in memory:
+Store decision rationale for future reference

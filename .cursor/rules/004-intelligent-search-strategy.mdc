@@ -1,0 +1,89 @@
+---
+name: intelligent-search-strategy
+description: Smart, minimal search strategy
+alwaysApply: true
+---
+
+# One Primary Search Per Task
+
+## Choose ONE based on task type:
+
+**Library/Framework Task:**
+```
+context7.resolve-library-id(library) → context7.get-library-docs(id, topic=specific_feature) 
+```
+
+**Pattern/Best Practice Task:**
+```
+exa.web_search("[pattern] [language] best practices 2024")
+```
+
+**Error Resolution Task:**
+```
+exa.web_search("[exact error message]") → If no results: exa.web_search("[error type] [context]")
+```
+
+**Architecture Decision Task:**
+```
+exa.deep_researcher_start("[comparison] [use case]") → Wait 30s → check results
+```
+
+# Secondary Search (only if needed)
+
+**Trigger secondary search when:**
+- Primary search reveals versioning issues
+- Uncertainty remains after primary search
+- Error persists after first solution attempt
+
+**Maximum:** 5 searches per task unless debugging
+
+# Search Optimization
+
+## Batch Import Resolution:
+```
+// Collect all imports first 
+imports = [lib1, lib2, lib3]
+// Single call for all 
+context7.resolve-library-id(most_important_lib)
+// Use web search for others if needed
+```
+
+## Session-Level Caching:
+```
+searched_this_session = { 
+  "react": "done",
+  "typescript generics": "done"
+}
+// Skip if already searched
+
+```
+
+## Smart Query Construction:
+- Include year: "2024" or "2025"
+- Include version if known
+- Use exact error messages in quotes
+- Add context: language, framework, use case
+
+# Search Quality Tracking
+
+**After each search, store in memory:**
+```
+entity: "SearchQuery" 
+observations: { 
+  query: "exact query used", 
+  useful: true/false, 
+  results_applied: "what was used" 
+}
+```
+
+# Preemptive Search Boundaries
+
+**ONE preemptive search per session for:**
+- New framework/library (first encounter only)
+- Major version changes detected
+- Deprecated pattern warnings
+
+**Skip preemptive search for:**
+- Standard library
+- Patterns searched in last hour
+- Well-established, stable APIs

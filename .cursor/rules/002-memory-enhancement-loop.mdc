@@ -1,0 +1,79 @@
+---
+name: memory-enhancement-loop
+description: Smart memory building and retrieval
+alwaysApply: true
+---
+
+# Memory Graph Building
+
+## Entity Creation Rules
+
+**Create entities for (per task):**
+- Primary function/class (not helpers)
+- External libraries used (with version)
+- Design patterns applied
+- Errors encountered and resolved
+- Configuration decisions
+
+**Batch creation:** Collect all entities, create once at task end
+
+## Relationship Patterns
+
+**Standard relations:**
+- IMPLEMENTS: function → pattern
+- USES: code → library
+- SOLVES: solution → problem
+- REQUIRES: feature → dependency
+- PREFERS: user → approach
+
+## Query Intelligence
+
+**Before each task:**
+```
+1.  Extract keywords from task description
+2.  search_memories(keywords)
+3.  If results:
+    -   Use relevant patterns
+    -   Note previous decisions
+    -   Avoid previous errors
+4.  If no results:
+    -   Mark as new territory
+    -   Flag for detailed persistence
+```
+
+## Deduplication Strategy
+
+**Before creating entities:**
+1. Check if entity exists in current session cache
+2. Check if entity was created in last 10 operations
+3. Only create if genuinely new or significantly updated
+
+## Session Management
+
+**Session boundary = One of:**
+- Context switch (different project/file)
+- 30 minutes of inactivity
+- Explicit task completion
+- User indicates "done" or "finished"
+
+**At session end:**
+```
+Create session summary entity:
+
+-   Total tasks completed
+-   New patterns learned
+-   Errors resolved
+-   Key decisions made
+```
+
+# Smart Retrieval
+
+## Prioritize recent and relevant:
+- Weight recent memories higher
+- Filter by current project context
+- Limit to top 5 most relevant results
+
+## Skip memory search if:
+- Same query in last 5 operations
+- Pure syntax questions
+- Standard library usage

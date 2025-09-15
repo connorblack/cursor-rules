@@ -1,0 +1,138 @@
+---
+name: universal-mcp-loop
+description: Task-based tool orchestration with memory persistence
+alwaysApply: true
+---
+
+# Task Start Ritual (MANDATORY for each new coding task)
+
+## Begin EVERY coding task with:
+1. **MEMORY CHECK** → neo4j.search_memories(task_keywords)
+2. **CONTEXT LOAD** → context7 OR exa (pick ONE based on task type)
+3. **THINKING START** → sequential_thinking (if multi-step/complex)
+
+This ensures 2-3 tool calls minimum per task.
+
+# The Four Pillars
+
+## 1️⃣ SEQUENTIAL THINKING - Task Decomposition
+**Mandatory triggers:**
+- Start of each new coding task (>10 lines)
+- Multi-file modifications
+- Architecture decisions
+- When confidence < 80%
+- User asks "how" or "why"
+
+**Skip if:** Single function update, typo fix, or pure boilerplate
+
+## 2️⃣ EXA SEARCH - Current Practices
+**One primary search per task:**
+- FIRST use of external library → verify current syntax
+- Core implementation → check best practices 2024/2025
+- Error message → search exact text
+- Uncertainty signal → search patterns
+
+**Session cache:** Don't re-search the same library/pattern within session
+
+## 3️⃣ CONTEXT7 - Documentation
+**Smart activation:**
+- Batch process ALL imports at task start
+- One resolve-library-id call per unique library
+- Cache docs for entire session
+- Only refresh if version mismatch detected
+
+**Skip for:** Standard library, internal modules, already cached
+
+## 4️⃣ NEO4J MEMORY - Persistent Context
+**Three-phase memory loop:**
+
+**TASK START (Retrieve):**
+- search_memories(task_context) - ALWAYS
+- Load project patterns if found
+- Note if this is new territory
+
+**TASK EXECUTION (Track):**
+- Collect entities during implementation
+- Note decision points
+- Track uncertainties resolved
+
+**TASK COMPLETE (Persist):**
+- Batch create_entities([all_new_concepts])
+- add_observations(implementation_approach)
+- create_relations(discovered_connections)
+- Store solution patterns
+
+# Execution Flow per Task
+```
+TASK START 
+↓ 
+[MEMORY RETRIEVE] - Check existing knowledge (1 call) 
+↓ 
+[SEARCH/DOCS] - Get current practices (1-2 calls) 
+↓ 
+[THINKING] - Decompose if complex (0-1 call) 
+↓ 
+[IMPLEMENTATION] - Build with context 
+↓ 
+[MEMORY PERSIST] - Store learnings (1-3 calls) 
+↓ 
+TASK COMPLETE
+```
+
+Target: 4-8 total tool calls per coding task
+
+# Session Intelligence
+
+## Cache within session:
+- Library documentation fetched
+- Search results obtained
+- Thinking decisions made
+- Memory queries executed
+
+## Refresh triggers:
+- New coding task with different context
+- Explicit version change
+- Error indicating outdated approach
+- User correction/feedback
+
+# Memory Persistence Patterns
+
+## Per Task Completion:
+```
+entities: [main_function, key_patterns, libraries_used] 
+relations: [IMPLEMENTS, USES, SOLVES] 
+observations: { 
+  approach: "description", 
+  complexity: "low|medium|high", 
+  reusable: true/false 
+}
+```
+
+## Per Error Resolution:
+```
+entities: [error_type, solution_method] 
+relations: [SOLVED_BY, PREVENTS] 
+observations: {root_cause: "...", prevention: "..."}
+```
+
+# Search Quality Tracking
+**After each search, store in memory:**
+```
+entity: "SearchQuery" 
+observations: { 
+  query: "exact query used", 
+  useful: true/false, 
+  results_applied: "what was used" 
+}
+```
+
+# Preemptive Search Boundaries
+**ONE preemptive search per session for:**
+- New framework/library (first encounter only)
+- Major version changes detected
+- Deprecated pattern warnings
+
+**Skip preemptive search for:**
+- Standard library
+- Patterns searched in last hour
+- Well-established, stable APIs
