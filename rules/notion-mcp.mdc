@@ -1,4 +1,5 @@
 ---
+description: Search and execute CRUD operations in the user's Notion notebook
 alwaysApply: false
 ---
 ## When to Use Notion API Tools
